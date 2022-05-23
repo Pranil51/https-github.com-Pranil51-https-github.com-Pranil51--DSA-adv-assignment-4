@@ -1,0 +1,50 @@
+class graph:
+    def __init__(self):
+        self.data = {}
+        
+    def addEdge(self, u, v):
+        if u in self.data.keys():
+            self.data[u].append(v)
+        else:
+            self.data[u] = [v]
+        if v not in self.data.keys():
+            self.data[v] = []
+        
+    def bfs(self):
+        visited = {}
+        for vertex in self.data.keys():
+            visited[vertex] = False
+        queue = []
+        for v in self.data.keys():
+            if visited[v] == True:
+                continue
+            queue.append(v)
+            visited[v] = True
+            while len(queue) > 0:
+                popped_item = queue.pop(0)
+                print(popped_item,end="-->")
+                for connected_vertex in self.data[popped_item]:
+                    if visited[connected_vertex] == False:
+                        queue.append(connected_vertex)
+                        visited[connected_vertex] = True
+#dfs in graph
+adj_list={"A":["B","C"],"B":["E","C"],"C":["D"],"D":[],"E":["D"]}                        
+visited={}
+parent={}
+dfs_output=[]
+for v in adj_list.keys():
+    visited[v]="Not Visited"
+    parent[v]=None
+def dfs(u):    
+    visited[u]="Partially Visited"
+    dfs_output.append(u)
+    for v in adj_list[u]:
+        if visited[v]=="Not Visited":
+            parent[v]=u
+            dfs(v)
+    visited[u]="Fully Visited"
+for u in adj_list.keys():
+    if visited[u]=="Not Visited":
+        dfs(u)
+
+dfs_output
