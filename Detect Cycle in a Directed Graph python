@@ -1,0 +1,33 @@
+# Detect Cycle in a Directed Graph python
+adj_list={"A":["B","C"],"B":["E","C"],"C":["D","A"],"D":[],"E":["D"]}                        
+adj_list1={"A":["B"],"B":["E","C"],"C":["D"],"D":[],"E":["D"]}  
+adj_list2={"A":["B"],"B":["C"],"C":["D"],"D":["A"],"D":["E"]}
+visited={}
+helper={}
+dfs_output=[]
+for v in adj_list.keys():
+    visited[v]=False
+    helper[v]=False
+def dfs(u):    
+    visited[u]=True
+    helper[u]=True
+    for v in adj_list[u]:
+        if helper[v] == True:
+            return True
+        if visited[v]==False:
+            a=dfs(v)
+            if a is True:
+                return True
+    helper[u]=False
+    return False
+
+def is_cyclic(adj_list):
+    for u in adj_list.keys():
+        if visited[u] == False:
+            ans = dfs(u)
+            if ans == True:
+                return True
+        return False
+
+a=is_cyclic(adj_list1)
+a
