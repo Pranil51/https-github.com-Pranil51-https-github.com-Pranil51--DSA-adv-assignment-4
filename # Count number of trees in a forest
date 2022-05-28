@@ -1,0 +1,12 @@
+adj_list={"A":["B","C"],"D":["E","F"],"1":["2","5"]}
+def no_trees(adj_list):
+    E={}
+    n=0
+    for v in adj_list.values():
+        s=set(v)
+        E=s.union(E)
+    for u in adj_list.keys():
+        if u not in E:
+            n=n+1
+    return n
+no_trees(adj_list)
